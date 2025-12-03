@@ -1,8 +1,8 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Ionicons } from '@expo/vector-icons';
+import React from "react";
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { Ionicons } from "@expo/vector-icons";
 
 type QuickLinksStackParamList = {
   QuickLinks: undefined;
@@ -12,28 +12,38 @@ type QuickLinksStackParamList = {
   ShiftSummary: undefined;
 };
 
-type QuickLinksScreenNavigationProp = NativeStackNavigationProp<QuickLinksStackParamList, 'QuickLinks'>;
+type QuickLinksScreenNavigationProp = NativeStackNavigationProp<
+  QuickLinksStackParamList,
+  "QuickLinks"
+>;
 
 export default function QuickLinksScreen() {
   const navigation = useNavigation<QuickLinksScreenNavigationProp>();
 
   const handleNotifications = () => {
-    Alert.alert('Notifications', 'You have no new notifications.');
+    Alert.alert("Notifications", "You have no new notifications.");
+  };
+
+  const handleLogoPress = () => {
+    const parent = navigation.getParent();
+    if (parent) {
+      parent.navigate("Home");
+    }
   };
 
   const menuItems = [
-    { id: 1, title: 'Dashboard', route: 'Dashboard' as const },
-    { id: 2, title: 'Available Orders', route: 'AvailableOrders' as const },
-    { id: 3, title: 'Safe Mode', route: 'SafeMode' as const },
-    { id: 4, title: 'Shift Summary', route: 'ShiftSummary' as const },
+    { id: 1, title: "Dashboard", route: "Dashboard" as const },
+    { id: 2, title: "Available Orders", route: "AvailableOrders" as const },
+    { id: 3, title: "Safe Mode", route: "SafeMode" as const },
+    { id: 4, title: "Shift Summary", route: "ShiftSummary" as const },
   ];
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <View style={styles.logoBox}>
+        <TouchableOpacity style={styles.logoBox} onPress={handleLogoPress}>
           <Ionicons name="briefcase-outline" size={24} color="#007AFF" />
-        </View>
+        </TouchableOpacity>
         <TouchableOpacity onPress={handleNotifications}>
           <Ionicons name="notifications-outline" size={24} color="#000000" />
         </TouchableOpacity>
@@ -58,13 +68,13 @@ export default function QuickLinksScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     padding: 20,
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginTop: 50,
     marginBottom: 32,
   },
@@ -72,32 +82,31 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   menuContainer: {
     flex: 1,
   },
   menuItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#F2F2F7',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#F2F2F7",
     padding: 20,
     borderRadius: 12,
     marginBottom: 16,
   },
   menuItemNumber: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: '#007AFF',
+    fontWeight: "bold",
+    color: "#007AFF",
     marginRight: 16,
     width: 32,
   },
   menuItemText: {
     fontSize: 18,
-    fontWeight: '600',
-    color: '#000000',
+    fontWeight: "600",
+    color: "#000000",
     flex: 1,
   },
 });
-

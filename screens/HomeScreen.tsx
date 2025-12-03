@@ -1,8 +1,8 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons';
+import React from "react";
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import { Ionicons } from "@expo/vector-icons";
 
 type MainTabsParamList = {
   Home: undefined;
@@ -10,25 +10,31 @@ type MainTabsParamList = {
   Community: undefined;
 };
 
-type HomeScreenNavigationProp = BottomTabNavigationProp<MainTabsParamList, 'Home'>;
+type HomeScreenNavigationProp = BottomTabNavigationProp<
+  MainTabsParamList,
+  "Home"
+>;
 
 export default function HomeScreen() {
   const navigation = useNavigation<HomeScreenNavigationProp>();
 
   const handleStartShift = () => {
-    navigation.navigate('QuickLinksTab');
+    navigation.navigate("QuickLinksTab");
   };
 
   const handleNotifications = () => {
-    Alert.alert('Notifications', 'You have no new notifications.');
+    Alert.alert("Notifications", "You have no new notifications.");
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <View style={styles.logoBox}>
+        <TouchableOpacity
+          style={styles.logoBox}
+          onPress={() => navigation.navigate("Home")}
+        >
           <Ionicons name="briefcase-outline" size={24} color="#007AFF" />
-        </View>
+        </TouchableOpacity>
         <TouchableOpacity onPress={handleNotifications}>
           <Ionicons name="notifications-outline" size={24} color="#000000" />
         </TouchableOpacity>
@@ -40,11 +46,14 @@ export default function HomeScreen() {
         <Text style={styles.goalText}>Goal: $150</Text>
         <Text style={styles.progressText}>Progress: $78</Text>
         <View style={styles.progressBarContainer}>
-          <View style={[styles.progressBar, { width: '51%' }]} />
+          <View style={[styles.progressBar, { width: "51%" }]} />
         </View>
       </View>
 
-      <TouchableOpacity style={styles.startShiftButton} onPress={handleStartShift}>
+      <TouchableOpacity
+        style={styles.startShiftButton}
+        onPress={handleStartShift}
+      >
         <Text style={styles.startShiftButtonText}>START SHIFT</Text>
       </TouchableOpacity>
 
@@ -59,13 +68,13 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     padding: 20,
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginTop: 50,
     marginBottom: 20,
   },
@@ -73,13 +82,13 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   greeting: {
     fontSize: 24,
-    fontWeight: '600',
-    color: '#000000',
+    fontWeight: "600",
+    color: "#000000",
     marginBottom: 24,
   },
   goalSection: {
@@ -87,49 +96,48 @@ const styles = StyleSheet.create({
   },
   goalText: {
     fontSize: 18,
-    fontWeight: '600',
-    color: '#000000',
+    fontWeight: "600",
+    color: "#000000",
     marginBottom: 8,
   },
   progressText: {
     fontSize: 16,
-    color: '#8E8E93',
+    color: "#8E8E93",
     marginBottom: 12,
   },
   progressBarContainer: {
     height: 8,
-    backgroundColor: '#E5E5EA',
+    backgroundColor: "#E5E5EA",
     borderRadius: 4,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   progressBar: {
-    height: '100%',
-    backgroundColor: '#007AFF',
+    height: "100%",
+    backgroundColor: "#007AFF",
   },
   startShiftButton: {
-    backgroundColor: '#007AFF',
+    backgroundColor: "#007AFF",
     paddingVertical: 20,
     borderRadius: 12,
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 32,
   },
   startShiftButtonText: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   hotZonesSection: {
-    marginTop: 'auto',
+    marginTop: "auto",
   },
   hotZonesTitle: {
     fontSize: 16,
-    fontWeight: '600',
-    color: '#000000',
+    fontWeight: "600",
+    color: "#000000",
     marginBottom: 8,
   },
   hotZoneText: {
     fontSize: 14,
-    color: '#8E8E93',
+    color: "#8E8E93",
   },
 });
-
