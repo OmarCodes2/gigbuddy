@@ -1,9 +1,31 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+type QuickLinksStackParamList = {
+  QuickLinks: undefined;
+  Dashboard: undefined;
+  AvailableOrders: undefined;
+  SafeMode: undefined;
+  ShiftSummary: undefined;
+};
+
+type ShiftSummaryScreenNavigationProp = NativeStackNavigationProp<QuickLinksStackParamList, 'ShiftSummary'>;
 
 export default function ShiftSummaryScreen() {
+  const navigation = useNavigation<ShiftSummaryScreenNavigationProp>();
+
   return (
     <View style={styles.container}>
+      <View style={styles.topHeader}>
+        <TouchableOpacity 
+          style={styles.backButton}
+          onPress={() => navigation.goBack()}
+        >
+          <Text style={styles.backButtonText}>← Back</Text>
+        </TouchableOpacity>
+      </View>
       <View style={styles.header}>
         <Text style={styles.title}>$78 / $150 Goal</Text>
         <View style={styles.progressBarContainer}>
@@ -38,8 +60,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     padding: 20,
   },
+  topHeader: {
+    marginTop: 50,
+    marginBottom: 20,
+  },
+  backButton: {
+    paddingVertical: 8,
+    paddingHorizontal: 4,
+  },
+  backButtonText: {
+    fontSize: 16,
+    color: '#007AFF',
+    fontWeight: '600',
+  },
   header: {
-    marginTop: 40,
+    marginTop: 0,
     marginBottom: 40,
   },
   title: {

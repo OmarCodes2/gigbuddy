@@ -1,8 +1,22 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import MapView, { Marker, Polyline } from 'react-native-maps';
 
+type QuickLinksStackParamList = {
+  QuickLinks: undefined;
+  Dashboard: undefined;
+  AvailableOrders: undefined;
+  SafeMode: undefined;
+  ShiftSummary: undefined;
+};
+
+type SafeModeScreenNavigationProp = NativeStackNavigationProp<QuickLinksStackParamList, 'SafeMode'>;
+
 export default function SafeModeScreen() {
+  const navigation = useNavigation<SafeModeScreenNavigationProp>();
+
   const handleAccept = () => {
     Alert.alert('Accepted', 'Order accepted in Safe Mode.');
   };
@@ -14,10 +28,18 @@ export default function SafeModeScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>SAFE MODE</Text>
+        <TouchableOpacity 
+          style={styles.backButton}
+          onPress={() => navigation.goBack()}
+        >
+          <Text style={styles.backButtonText}>← Back</Text>
+        </TouchableOpacity>
         <View style={styles.statusPill}>
           <Text style={styles.statusText}>Online 1hr 33mins</Text>
         </View>
+      </View>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>SAFE MODE</Text>
       </View>
 
       <View style={styles.mapContainer}>
@@ -94,7 +116,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 50,
+    marginBottom: 20,
+  },
+  backButton: {
+    paddingVertical: 8,
+    paddingHorizontal: 4,
+  },
+  backButtonText: {
+    fontSize: 16,
+    color: '#FFFFFF',
+    fontWeight: '600',
+  },
+  titleContainer: {
     marginBottom: 20,
   },
   title: {

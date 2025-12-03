@@ -1,7 +1,7 @@
 import React from 'react';
-import { Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Ionicons } from '@expo/vector-icons';
 import HomeScreen from '../screens/HomeScreen';
 import QuickLinksScreen from '../screens/QuickLinksScreen';
 import DashboardScreen from '../screens/DashboardScreen';
@@ -58,7 +58,9 @@ export default function MainTabs() {
         name="Home"
         component={HomeScreen}
         options={{
-          tabBarIcon: () => <TabIcon>🏠</TabIcon>,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="home-outline" size={size} color={color} />
+          ),
           tabBarLabel: 'Home',
         }}
       />
@@ -66,7 +68,9 @@ export default function MainTabs() {
         name="QuickLinksTab"
         component={QuickLinksStackNavigator}
         options={{
-          tabBarIcon: () => <TabIcon>☰</TabIcon>,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="grid-outline" size={size} color={color} />
+          ),
           tabBarLabel: 'Quick Links',
         }}
       />
@@ -74,7 +78,9 @@ export default function MainTabs() {
         name="Community"
         component={CommunityScreen}
         options={{
-          tabBarIcon: () => <TabIcon>👤</TabIcon>,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="people-outline" size={size} color={color} />
+          ),
           tabBarLabel: 'Community',
         }}
       />
@@ -82,7 +88,4 @@ export default function MainTabs() {
   );
 }
 
-function TabIcon({ children }: { children: React.ReactNode }) {
-  return <Text>{children}</Text>;
-}
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Ionicons } from '@expo/vector-icons';
 import { RootStackParamList } from '../navigation/RootNavigator';
 
 type SignUpScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'SignUp'>;
@@ -21,7 +22,20 @@ export default function SignUpScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <View style={styles.logoBox} />
+        <View style={styles.leftSection}>
+          <TouchableOpacity 
+            style={styles.backButton}
+            onPress={() => navigation.goBack()}
+          >
+            <Text style={styles.backButtonText}>← Back</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.logoBox}>
+          <Ionicons name="briefcase-outline" size={24} color="#007AFF" />
+        </View>
+        <View style={styles.rightSection} />
+      </View>
+      <View style={styles.titleContainer}>
         <Text style={styles.title}>GigBuddy</Text>
       </View>
 
@@ -64,16 +78,38 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 60,
-    marginBottom: 40,
+    marginTop: 50,
+    marginBottom: 20,
+  },
+  leftSection: {
+    flex: 1,
+  },
+  backButton: {
+    paddingVertical: 8,
+    paddingHorizontal: 4,
+  },
+  backButtonText: {
+    fontSize: 16,
+    color: '#007AFF',
+    fontWeight: '600',
   },
   logoBox: {
-    width: 60,
-    height: 60,
-    backgroundColor: '#007AFF',
+    width: 40,
+    height: 40,
     borderRadius: 8,
-    marginBottom: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  rightSection: {
+    flex: 1,
+    width: 40,
+  },
+  titleContainer: {
+    alignItems: 'center',
+    marginBottom: 40,
   },
   title: {
     fontSize: 28,

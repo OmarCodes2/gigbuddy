@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Ionicons } from '@expo/vector-icons';
 
 type QuickLinksStackParamList = {
   QuickLinks: undefined;
@@ -16,6 +17,10 @@ type QuickLinksScreenNavigationProp = NativeStackNavigationProp<QuickLinksStackP
 export default function QuickLinksScreen() {
   const navigation = useNavigation<QuickLinksScreenNavigationProp>();
 
+  const handleNotifications = () => {
+    Alert.alert('Notifications', 'You have no new notifications.');
+  };
+
   const menuItems = [
     { id: 1, title: 'Dashboard', route: 'Dashboard' as const },
     { id: 2, title: 'Available Orders', route: 'AvailableOrders' as const },
@@ -26,9 +31,11 @@ export default function QuickLinksScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <View style={styles.logoBox} />
-        <TouchableOpacity>
-          <Text style={styles.bellIcon}>🔔</Text>
+        <View style={styles.logoBox}>
+          <Ionicons name="briefcase-outline" size={24} color="#007AFF" />
+        </View>
+        <TouchableOpacity onPress={handleNotifications}>
+          <Ionicons name="notifications-outline" size={24} color="#000000" />
         </TouchableOpacity>
       </View>
 
@@ -58,17 +65,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 50,
     marginBottom: 32,
   },
   logoBox: {
     width: 40,
     height: 40,
-    backgroundColor: '#007AFF',
     borderRadius: 8,
-  },
-  bellIcon: {
-    fontSize: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   menuContainer: {
     flex: 1,
