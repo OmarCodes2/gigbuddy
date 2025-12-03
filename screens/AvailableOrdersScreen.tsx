@@ -1,5 +1,18 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Ionicons } from '@expo/vector-icons';
+
+type QuickLinksStackParamList = {
+  QuickLinks: undefined;
+  Dashboard: undefined;
+  AvailableOrders: undefined;
+  SafeMode: undefined;
+  ShiftSummary: undefined;
+};
+
+type AvailableOrdersScreenNavigationProp = NativeStackNavigationProp<QuickLinksStackParamList, 'AvailableOrders'>;
 
 const orders = [
   {
@@ -26,6 +39,8 @@ const orders = [
 ];
 
 export default function AvailableOrdersScreen() {
+  const navigation = useNavigation<AvailableOrdersScreenNavigationProp>();
+
   const handleAccept = (orderId: number) => {
     Alert.alert('Order Accepted', `Order ${orderId} has been accepted.`);
   };
@@ -34,12 +49,21 @@ export default function AvailableOrdersScreen() {
     Alert.alert('Order Declined', `Order ${orderId} has been declined.`);
   };
 
+  const handleNotifications = () => {
+    Alert.alert('Notifications', 'You have no new notifications.');
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <View style={styles.logoBox} />
-        <TouchableOpacity>
-          <Text style={styles.bellIcon}>🔔</Text>
+        <TouchableOpacity 
+          style={styles.backButton}
+          onPress={() => navigation.goBack()}
+        >
+          <Text style={styles.backButtonText}>← Back</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleNotifications}>
+          <Ionicons name="notifications-outline" size={24} color="#000000" />
         </TouchableOpacity>
       </View>
 
@@ -85,17 +109,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 50,
     marginBottom: 24,
   },
-  logoBox: {
-    width: 40,
-    height: 40,
-    backgroundColor: '#007AFF',
-    borderRadius: 8,
+  backButton: {
+    paddingVertical: 8,
+    paddingHorizontal: 4,
   },
-  bellIcon: {
-    fontSize: 24,
+  backButtonText: {
+    fontSize: 16,
+    color: '#007AFF',
+    fontWeight: '600',
   },
   title: {
     fontSize: 24,

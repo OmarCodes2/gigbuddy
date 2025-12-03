@@ -1,14 +1,38 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Ionicons } from '@expo/vector-icons';
 import MapView, { Marker } from 'react-native-maps';
 
+type QuickLinksStackParamList = {
+  QuickLinks: undefined;
+  Dashboard: undefined;
+  AvailableOrders: undefined;
+  SafeMode: undefined;
+  ShiftSummary: undefined;
+};
+
+type DashboardScreenNavigationProp = NativeStackNavigationProp<QuickLinksStackParamList, 'Dashboard'>;
+
 export default function DashboardScreen() {
+  const navigation = useNavigation<DashboardScreenNavigationProp>();
+
+  const handleNotifications = () => {
+    Alert.alert('Notifications', 'You have no new notifications.');
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <View style={styles.logoBox} />
-        <TouchableOpacity>
-          <Text style={styles.bellIcon}>🔔</Text>
+        <TouchableOpacity 
+          style={styles.backButton}
+          onPress={() => navigation.goBack()}
+        >
+          <Text style={styles.backButtonText}>← Back</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleNotifications}>
+          <Ionicons name="notifications-outline" size={24} color="#000000" />
         </TouchableOpacity>
       </View>
 
@@ -66,17 +90,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 50,
     marginBottom: 20,
   },
-  logoBox: {
-    width: 40,
-    height: 40,
-    backgroundColor: '#007AFF',
-    borderRadius: 8,
+  backButton: {
+    paddingVertical: 8,
+    paddingHorizontal: 4,
   },
-  bellIcon: {
-    fontSize: 24,
+  backButtonText: {
+    fontSize: 16,
+    color: '#007AFF',
+    fontWeight: '600',
   },
   statusRow: {
     flexDirection: 'row',

@@ -1,31 +1,37 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../navigation/RootNavigator';
+import React from "react";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { Ionicons } from "@expo/vector-icons";
+import { RootStackParamList } from "../navigation/RootNavigator";
 
-type WelcomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Welcome'>;
+type WelcomeScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "Welcome"
+>;
 
 export default function WelcomeScreen() {
   const navigation = useNavigation<WelcomeScreenNavigationProp>();
 
   return (
     <View style={styles.container}>
-      <View style={styles.logoBox} />
+      <View style={styles.logoBox}>
+        <Ionicons name="briefcase-outline" size={48} color="#007AFF" />
+      </View>
       <Text style={styles.title}>GigBuddy</Text>
       <Text style={styles.tagline}>Your all in one Gig App</Text>
-      
+
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.primaryButton}
-          onPress={() => navigation.navigate('SignUp')}
+          onPress={() => navigation.navigate("SignUp")}
         >
           <Text style={styles.primaryButtonText}>Get Started</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity
           style={styles.secondaryButton}
-          onPress={() => navigation.navigate('Login')}
+          onPress={() => navigation.navigate("Login")}
         >
           <Text style={styles.secondaryButtonText}>Sign In</Text>
         </TouchableOpacity>
@@ -37,57 +43,58 @@ export default function WelcomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#FFFFFF",
     padding: 20,
   },
   logoBox: {
     width: 80,
-    height: 80,
-    backgroundColor: '#007AFF',
+    height: 50,
     borderRadius: 12,
-    marginBottom: 20,
+    marginTop: 0,
+    marginBottom: 10,
+    justifyContent: "center",
+    alignItems: "center",
   },
   title: {
     fontSize: 32,
-    fontWeight: 'bold',
-    color: '#000000',
+    fontWeight: "bold",
+    color: "#000000",
     marginBottom: 10,
   },
   tagline: {
     fontSize: 16,
-    color: '#8E8E93',
+    color: "#8E8E93",
     marginBottom: 40,
   },
   buttonContainer: {
-    width: '100%',
+    width: "100%",
     maxWidth: 300,
   },
   primaryButton: {
-    backgroundColor: '#007AFF',
+    backgroundColor: "#007AFF",
     paddingVertical: 16,
     paddingHorizontal: 32,
     borderRadius: 8,
     marginBottom: 12,
-    alignItems: 'center',
+    alignItems: "center",
   },
   primaryButtonText: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   secondaryButton: {
-    backgroundColor: '#F2F2F7',
+    backgroundColor: "#F2F2F7",
     paddingVertical: 16,
     paddingHorizontal: 32,
     borderRadius: 8,
-    alignItems: 'center',
+    alignItems: "center",
   },
   secondaryButtonText: {
-    color: '#007AFF',
+    color: "#007AFF",
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
 });
-

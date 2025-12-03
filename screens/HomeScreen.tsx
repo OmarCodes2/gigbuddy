@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
 
 type MainTabsParamList = {
   Home: undefined;
@@ -18,12 +19,18 @@ export default function HomeScreen() {
     navigation.navigate('QuickLinksTab');
   };
 
+  const handleNotifications = () => {
+    Alert.alert('Notifications', 'You have no new notifications.');
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <View style={styles.logoBox} />
-        <TouchableOpacity>
-          <Text style={styles.bellIcon}>🔔</Text>
+        <View style={styles.logoBox}>
+          <Ionicons name="briefcase-outline" size={24} color="#007AFF" />
+        </View>
+        <TouchableOpacity onPress={handleNotifications}>
+          <Ionicons name="notifications-outline" size={24} color="#000000" />
         </TouchableOpacity>
       </View>
 
@@ -59,17 +66,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 50,
     marginBottom: 20,
   },
   logoBox: {
     width: 40,
     height: 40,
-    backgroundColor: '#007AFF',
     borderRadius: 8,
-  },
-  bellIcon: {
-    fontSize: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   greeting: {
     fontSize: 24,
