@@ -22,7 +22,16 @@ export default function LoginScreen() {
   const [password, setPassword] = useState("");
 
   const handleSignIn = () => {
-    // Fake login - no validation needed
+    // Validate that all fields have at least one character
+    if (email.trim().length === 0) {
+      Alert.alert("Validation Error", "Please enter your email.");
+      return;
+    }
+    if (password.trim().length === 0) {
+      Alert.alert("Validation Error", "Please enter your password.");
+      return;
+    }
+
     Alert.alert("Success", "Signed in successfully!");
     navigation.navigate("MainTabs");
   };
@@ -42,6 +51,9 @@ export default function LoginScreen() {
       </View>
 
       <View style={styles.form}>
+        <Text style={styles.label}>
+          Email <Text style={styles.asterisk}>*</Text>
+        </Text>
         <TextInput
           style={styles.input}
           placeholder="Email"
@@ -50,6 +62,9 @@ export default function LoginScreen() {
           keyboardType="email-address"
           autoCapitalize="none"
         />
+        <Text style={styles.label}>
+          Password <Text style={styles.asterisk}>*</Text>
+        </Text>
         <TextInput
           style={styles.input}
           placeholder="Password"
@@ -96,6 +111,15 @@ const styles = StyleSheet.create({
   },
   form: {
     flex: 1,
+  },
+  label: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#000000",
+    marginBottom: 8,
+  },
+  asterisk: {
+    color: "#FF3B30",
   },
   input: {
     borderWidth: 1,

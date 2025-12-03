@@ -11,6 +11,8 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
 const initialPosts = [
@@ -30,10 +32,22 @@ const initialPosts = [
   },
 ];
 
+type MainTabsParamList = {
+  Home: undefined;
+  QuickLinksTab: undefined;
+  Community: undefined;
+};
+
 export default function CommunityScreen() {
+  const navigation =
+    useNavigation<BottomTabNavigationProp<MainTabsParamList>>();
   const [posts, setPosts] = useState(initialPosts);
   const [modalVisible, setModalVisible] = useState(false);
   const [tipText, setTipText] = useState("");
+
+  const handleLogoPress = () => {
+    navigation.navigate("Home");
+  };
 
   const handleShareTip = () => {
     setModalVisible(true);
@@ -71,9 +85,9 @@ export default function CommunityScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <View style={styles.logoBox}>
+        <TouchableOpacity style={styles.logoBox} onPress={handleLogoPress}>
           <Ionicons name="briefcase-outline" size={24} color="#007AFF" />
-        </View>
+        </TouchableOpacity>
         <TouchableOpacity onPress={handleNotifications}>
           <Ionicons name="notifications-outline" size={24} color="#000000" />
         </TouchableOpacity>
